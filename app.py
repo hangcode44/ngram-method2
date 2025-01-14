@@ -214,4 +214,4 @@ def update_figure(n_clicks, n_gram_type, subfolder, filtered_data_json, selected
     return fig
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
