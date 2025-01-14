@@ -4,19 +4,22 @@ import dash
 from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output, State
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
 
 app = dash.Dash(__name__)
-# server = app.server
+server = app.server
 
-df = pd.read_excel('all_results_500_final.xlsx')
-df2 = pd.read_excel('all_results_10000_epoch_final.xlsx')
-df3 = pd.read_excel('all_results_10000_final.xlsx')
-#df3 = pd.read_excel('all_results_10000.xlsx')
-
-# Add custom CSS stylesheet
-#app.css.append_css({
-#    'external_url': 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
-#})
+# Load data
+try:
+    df = pd.read_excel('all_results_500_final.xlsx')
+    df2 = pd.read_excel('all_results_10000_epoch_final.xlsx')
+    df3 = pd.read_excel('all_results_10000_final.xlsx')
+    logging.info("Excel files loaded successfully.")
+except Exception as e:
+    logging.error(f"Error loading Excel files: {e}")
 
 # Define layout with tabs
 app.layout = html.Div([
