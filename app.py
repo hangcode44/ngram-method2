@@ -5,6 +5,8 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output, State
 import logging
+import requests
+from io import BytesIO
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -12,12 +14,16 @@ logging.basicConfig(level=logging.INFO)
 app = dash.Dash(__name__)
 server = app.server
 
-# Load data
+# Load data from external storage
 try:
-    df = pd.read_excel('all_results_500_final.xlsx')
-    df2 = pd.read_excel('all_results_10000_epoch_final.xlsx')
-    df3 = pd.read_excel('all_results_10000_final.xlsx')
-    logging.info("Excel files loaded successfully.")
+    url1 = 'https://ngram.s3.us-east-1.amazonaws.com/all_results_500_final.xlsx'
+    url2 = 'https://ngram.s3.us-east-1.amazonaws.com/all_results_10000_epoch_final.xlsx'
+    url3 = 'https://ngram.s3.us-east-1.amazonaws.com/all_results_10000_final.xlsx'
+    
+    df = pd.read_excel(BytesIO(requests.get(url1).content))
+    df2 = pd.read_excel(BytesIO(requests.get(url2).content))
+    df3 = pd.read_excel(BytesIO(requests.get(url3).content))
+    logging.info("Excel files loaded successfully from external storage.")
 except Exception as e:
     logging.error(f"Error loading Excel files: {e}")
 
