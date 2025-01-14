@@ -4,28 +4,19 @@ import dash
 from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output, State
-import logging
-import requests
-from io import BytesIO
-
-# Configure logging
-logging.basicConfig(level=logging.INFO)
 
 app = dash.Dash(__name__)
 server = app.server
 
-# Load data from external storage
-try:
-    url1 = 'https://ngram.s3.us-east-1.amazonaws.com/all_results_500_final.xlsx'
-    url2 = 'https://ngram.s3.us-east-1.amazonaws.com/all_results_10000_epoch_final.xlsx'
-    url3 = 'https://ngram.s3.us-east-1.amazonaws.com/all_results_10000_final.xlsx'
-    
-    df = pd.read_excel(BytesIO(requests.get(url1).content))
-    df2 = pd.read_excel(BytesIO(requests.get(url2).content))
-    df3 = pd.read_excel(BytesIO(requests.get(url3).content))
-    logging.info("Excel files loaded successfully from external storage.")
-except Exception as e:
-    logging.error(f"Error loading Excel files: {e}")
+df = pd.read_excel('all_results_500_final.xlsx')
+df2 = pd.read_excel('all_results_10000_epoch_final.xlsx')
+df3 = pd.read_excel('all_results_10000_final.xlsx')
+#df3 = pd.read_excel('all_results_10000.xlsx')
+
+# Add custom CSS stylesheet
+#app.css.append_css({
+#    'external_url': 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
+#})
 
 # Define layout with tabs
 app.layout = html.Div([
@@ -223,4 +214,4 @@ def update_figure(n_clicks, n_gram_type, subfolder, filtered_data_json, selected
     return fig
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run_server(debug=True)

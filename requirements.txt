@@ -2,3 +2,4 @@ openpyxl
 dash
 pandas
 plotly
+gunicorn
