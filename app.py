@@ -87,8 +87,6 @@ app.layout = html.Div([
     ])
 ])
 
-
-
 # Define the callback to update filtered data and word options
 @app.callback(
     Output('filtered-data-store1', 'data'),
@@ -132,7 +130,6 @@ def update_figure(n_clicks, n_gram_type, subfolder, filtered_data_json, selected
     if selected_words:
         filtered_data = filtered_data[filtered_data['N-Gram'].isin(selected_words)]
    
-    
     fig = go.Figure()
 
     for ngram in selected_words:
@@ -196,7 +193,6 @@ def update_figure(n_clicks, n_gram_type, subfolder, filtered_data_json, selected
     if selected_words:
         filtered_data = filtered_data[filtered_data['N-Gram'].isin(selected_words)]
    
-    
     fig = go.Figure()
 
     for ngram in selected_words:
@@ -216,8 +212,6 @@ def update_figure(n_clicks, n_gram_type, subfolder, filtered_data_json, selected
     )
 
     return fig
-
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)
