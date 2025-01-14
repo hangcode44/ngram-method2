@@ -6,7 +6,7 @@ from dash import html
 from dash.dependencies import Input, Output, State
 
 app = dash.Dash(__name__)
-server = app.server
+# server = app.server
 
 df = pd.read_excel('all_results_500_final.xlsx')
 df2 = pd.read_excel('all_results_10000_epoch_final.xlsx')
@@ -214,4 +214,4 @@ def update_figure(n_clicks, n_gram_type, subfolder, filtered_data_json, selected
     return fig
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=True)
